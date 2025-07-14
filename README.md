@@ -142,7 +142,7 @@ WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 wait.until(ExpectedConditions.elementToBeClickable(By.id("boton"))).click();
 ```
 
-## 📋 Ejemplos comunes:
+## 📋 Ejemplos comunes de Explicit Wait:
 
 ### elementToBeClickable
 Espera a que el elemento sea visible y esté habilitado para hacer clic
