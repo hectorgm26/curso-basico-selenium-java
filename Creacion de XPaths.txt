@@ -1,0 +1,37 @@
+existen los full xpath y los xpath relativos
+Se pueden obtener de las devtools del navegador, dando copy en el elemento y luego copy xpath o copy full xpath
+
+- ESTRUCTURA DE UN XPATH
+//*[@nombreDelAtributo='ValorDelAtributo']
+
+- PERO EN CASOS DONDE HAY VARIOS ELEMENTOS CON EL MISMO NOMBRE DE ATRIBUTO Y VALOR,
+DEBEMOS MEZCLAR EL XPATH CON UNO RELATIVO
+Para ello, como todos son elementos con el mismo valor, se puede basar en el contenedor de ese elemento
+//*[@nombreDelAtributo='ValorDelAtributo']//*[@class='']
+//*[@nombreDelAtributo='ValorDelAtributo']//*[@class='']/tipoElementoHTML[1]
+
+Es decir, se puede ir bajando de nivel en nivel, por ejemplo, partiendo de id, class y button
+
+- Otra forma de buscar por xpath cuando hay varios elementos:
+//*[@id='form flights" and @name="form flights"]
+//*[@id='form flights" and @name="form flights"]//button[@class='btn btn-primary']
+
+- Buscar por tipo de elemento
+//div[@class='uwu xd']//span[@class='sc_button_title']
+
+con //elementoHTML, se seleccionan todos los elementos de ese tipo que se encuentren
+en cualquier parte del documento (a cualquier nivel).
+
+- Buscar por texto
+//*[contains(text(), 'Texto que quiero buscar')]
+
+NO ES RECOMEMDABLE BUSCAR POR NODOS (POSICIONES), PERO HABRAN CASOS DONDE LAS CARACTERISTICAS DE UN ELEMENTO NO SON SUFICIENTES.
+Sin embargo, si cambia la estructura del HTML, el xpath se puede.
+
+- SOLUCIONES CUANDO PESE AL FILTRADO, IGUALMENTE HAY MUCHOS ELEMENTOS:
+Solución 1: obtener solo el primer resultado global: Usa ( ... )[1] envolviendo el XPath:
+(//*[@class='sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left']//span[@class='sc_button_title'])[1]
+
+Solución 2: simplificar el XPath con contains()
+(//a[contains(@class, 'sc_button')]//span[contains(@class, 'sc_button_title')])[1]
+

@@ -1,0 +1,77 @@
+
+Existen dos tipos de espera
+
+1) Implicit Waits:
+   - Se establece un tiempo máximo que el WebDriver esperará al buscar un elemento antes de lanzar una excepción.
+   - La automatizacion se quedara quieta, hasta que aparezca el elemento o se agote el tiempo.
+   - Si el elemento se encuentra antes de que se agote el tiempo, la ejecución continúa inmediatamente.
+   - Normalmente el metodo se coloca dentro de la clase donde estan las chrome options
+
+EJEMPLO:
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
+2) Explicit Waits:
+    - Se utiliza para esperar condiciones específicas antes de continuar con la ejecución.
+    - Permite esperar hasta que un elemento sea visible, clickeable, o cumpla con una condición específica.
+    - Se puede utilizar en cualquier parte del código donde se necesite esperar una condición específica.
+    - La prueba no terminara, mientras no se cumpla la condicion de tiempo, ni tampoco la condición esperada, es decir se quedara esperando y hasta podremos interacturar libremente, hasta cumplida alguna condicion
+
+EJEMPLO 1: elementToBeClickable
+- Espera que el elemento esté visible y habilitado para hacer clic.
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='enviar']"))).click();
+
+-----------------------------------------------------
+EJEMPLO 2: visibilityOfElementLocated
+- Espera que el elemento esté presente y visible (con tamaño mayor a 0, no oculto por CSS).
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mensajeExito")));
+
+-----------------------------------------------------
+EJEMPLO 3: presenceOfElementLocated
+- Espera que el elemento exista en el DOM, sin importar si es visible.
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.presenceOfElementLocated(By.name("correo")));
+
+-----------------------------------------------------
+EJEMPLO 4: elementToBeSelected
+- Espera que el elemento (checkbox o radio button) esté seleccionado.
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.elementToBeSelected(By.id("aceptarTerminos")));
+
+-----------------------------------------------------
+EJEMPLO 5: textToBePresentInElementLocated
+- Espera que el texto de un elemento contenga una cadena específica.
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("estado"), "Completado"));
+
+-----------------------------------------------------
+EJEMPLO 6: alertIsPresent
+- Espera que aparezca una alerta del navegador.
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.alertIsPresent());
+
+-----------------------------------------------------
+EJEMPLO 7: Lambda personalizada
+- Espera hasta que una condición definida manualmente sea verdadera.
+
+Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(driver -> driver.findElement(By.id("campo")).isDisplayed() &&
+                      driver.findElement(By.id("campo")).isEnabled());
+
+-----------------------------------------------------
+EJEMPLO 8: invisibilityOfElementLocated
+- Espera hasta que un elemento desaparezca del DOM o deje de ser visible.
+
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader")));
+
+EJEMPLO 2:
+Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(d -> revealed.isDisplayed() && revealed.isEnabled());
