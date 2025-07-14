@@ -10,6 +10,7 @@ Este repositorio contiene un curso introductorio de automatización de pruebas w
 - Automatización de formularios y validaciones
 - Manejo de datos desde archivos Excel con Apache POI
 - Buenas prácticas para pruebas automatizadas
+- Configuración moderna del driver con WebDriverManager
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -18,6 +19,34 @@ Este repositorio contiene un curso introductorio de automatización de pruebas w
 - **JUnit**: Framework para la ejecución de pruebas unitarias
 - **Apache POI**: Biblioteca para el manejo de archivos Excel
 - **Maven**: Herramienta de gestión de proyectos y dependencias
+- **WebDriverManager**: Utilidad moderna para la gestión automática del WebDriver
+
+## 🔧 WebDriverManager
+
+✅ **Nota importante:** Se utiliza la dependencia `WebDriverManager` para evitar la descarga manual del WebDriver compatible con el navegador. Esto permite:
+
+* No referenciar rutas físicas específicas
+* Evitar errores de compatibilidad entre versiones del navegador y el WebDriver
+* Asegurar que cada miembro del equipo utilice automáticamente la versión adecuada del driver
+* Mejorar la colaboración y evitar fallos en los tests por diferencias en el entorno
+
+**Ejemplo de uso:**
+
+```java
+// ✅ Configuramos automáticamente el driver con WebDriverManager, evitando descargarlo manualmente
+WebDriverManager.chromedriver().setup();
+```
+
+**Dependencia en el pom.xml:**
+
+```xml
+<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+<dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>6.1.0</version>
+</dependency>
+```
 
 ## 🔎 XPath: Absolutos y Relativos
 
@@ -116,42 +145,50 @@ wait.until(ExpectedConditions.elementToBeClickable(By.id("boton"))).click();
 ## 📋 Ejemplos comunes:
 
 ### elementToBeClickable
+Espera a que el elemento sea visible y esté habilitado para hacer clic
 ```java
 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='enviar']"))).click();
 ```
 
 ### visibilityOfElementLocated
+Espera a que el elemento sea visible en la página
 ```java
 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mensajeExito")));
 ```
 
 ### presenceOfElementLocated
+Espera a que el elemento esté presente en el DOM (no necesariamente visible)
 ```java
 wait.until(ExpectedConditions.presenceOfElementLocated(By.name("correo")));
 ```
 
 ### elementToBeSelected
+Espera a que el elemento (checkbox, radio button) esté seleccionado
 ```java
 wait.until(ExpectedConditions.elementToBeSelected(By.id("aceptarTerminos")));
 ```
 
 ### textToBePresentInElementLocated
+Espera a que un texto específico aparezca en el elemento
 ```java
 wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("estado"), "Completado"));
 ```
 
 ### alertIsPresent
+Espera a que aparezca una alerta JavaScript
 ```java
 wait.until(ExpectedConditions.alertIsPresent());
 ```
 
 ### Lambda personalizada
+Permite crear condiciones personalizadas de espera
 ```java
 wait.until(driver -> driver.findElement(By.id("campo")).isDisplayed() &&
                       driver.findElement(By.id("campo")).isEnabled());
 ```
 
 ### invisibilityOfElementLocated
+Espera a que el elemento desaparezca o no sea visible
 ```java
 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader")));
 ```
