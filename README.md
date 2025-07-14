@@ -193,20 +193,6 @@ Espera a que el elemento desaparezca o no sea visible
 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader")));
 ```
 
-## 📁 Estructura del Proyecto
-
-```
-curso-basico-selenium-java/
-├── src/
-│   └── main/
-│       └── java/
-│           └── [paquete]/  # Clases Java del proyecto
-├── pom.xml                 # Archivo de configuración de Maven
-├── Creacion de XPaths.txt  # Notas sobre la creación de XPaths
-├── TiposEspera.txt        # Notas sobre los diferentes tipos de esperas
-└── .gitignore             # Archivos y carpetas ignorados por Git
-```
-
 ## 🚀 Cómo Empezar
 
 1. **Clonar el repositorio**:
